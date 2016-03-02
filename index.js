@@ -27,6 +27,16 @@ parser.addArgument(
 
 // https certificate (?)
 // with-php
+parser.addArgument(
+	['--with-php'],
+	{
+		help: 'Set up PHP proxy to FastCGI',
+		action: 'storeTrue',
+		constant: 'with_php',
+		defaultValue: false
+	}
+);
+
 // with-https-redirect
 // with-www-redirect
 parser.addArgument(
