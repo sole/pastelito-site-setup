@@ -29,7 +29,17 @@ parser.addArgument(
 // with-php
 // with-https-redirect
 // with-www-redirect
-// www-path assumed /var/www
+parser.addArgument(
+	['--with-www-redirect'],
+	{
+		help: 'Set redirect from www.* to no www',
+		action: 'storeTrue',
+		constant: 'with_www_redirect',
+		defaultValue: false,
+		required: false
+	}
+);
+
 // nginx-conf-path assumed /etc/nginx
 // with-database [name] assumed domain name
 
