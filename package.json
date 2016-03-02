@@ -1,0 +1,15 @@
+{
+  "name": "pastelito-site-setup",
+  "version": "1.0.0",
+  "description": "quickly set sites up",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sole",
+  "license": "ISC",
+  "dependencies": {
+    "argparse": "^1.0.6",
+    "handlebars": "^4.0.5"
+  }
+}
