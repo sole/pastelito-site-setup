@@ -30,6 +30,11 @@ module.exports = function SiteSetup(args) {
 
 		args.server_name = args.domain;
 		args.site_path = path.join(args.www_path, args.directory);
+
+		// For obvious reasons, no WP without PHP
+		if(args.with_wordpress) {
+			args.with_php = true;
+		}
 	}
 
 	function generateNginxConfigFile(args) {

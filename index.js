@@ -32,7 +32,6 @@ parser.addArgument(
 	{
 		help: 'Set up PHP proxy to FastCGI',
 		action: 'storeTrue',
-		constant: 'with_php',
 		defaultValue: false
 	}
 );
@@ -44,11 +43,20 @@ parser.addArgument(
 	{
 		help: 'Set redirect from www.* to no www',
 		action: 'storeTrue',
-		constant: 'with_www_redirect',
-		defaultValue: false,
-		required: false
+		defaultValue: false
 	}
 );
+
+// with-wordpress
+parser.addArgument(
+	['--with-wordpress'],
+	{
+		help: 'Configure to send requests to WordPress',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
 
 // nginx-conf-path assumed /etc/nginx
 // with-database [name] assumed domain name
