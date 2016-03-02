@@ -17,7 +17,6 @@ module.exports = function SiteSetup(args) {
 		var siteConfig = generateNginxConfigFile(args);
 		console.log(siteConfig);
 
-
 		// nginx ln -s sites-enabled
 		// create site folder(s)
 		// database

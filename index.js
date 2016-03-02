@@ -57,6 +57,15 @@ parser.addArgument(
 	}
 );
 
+// with-static-caching
+parser.addArgument(
+	['--with-static-caching'],
+	{
+		help: 'Set static assets to be cached',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
 
 // nginx-conf-path assumed /etc/nginx
 // with-database [name] assumed domain name
