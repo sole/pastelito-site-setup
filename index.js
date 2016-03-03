@@ -12,7 +12,7 @@ var parser = new ArgParse({
 parser.addArgument(
 	['--domain'],
 	{
-		help: 'Domain of the site. E.g. example.com',
+		help: 'Site domain. E.g. example.com',
 		required: true
 	}
 );
@@ -96,6 +96,32 @@ parser.addArgument(
 	}
 );
 
+// Create directories
+parser.addArgument(
+	['--create-directories'],
+	{
+		help: 'Create directories for the site (html, logs) and sets up proper permissions',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
+// user and group for the created directory. www-data assumed which is the one the webserver runs as by default
+parser.addArgument(
+	['--user'],
+	{
+		help: 'User that will own the site directory',
+		defaultValue: 'www-data'
+	}
+);
+
+parser.addArgument(
+	['--group'],
+	{
+		help: 'Group that will own the site directory',
+		defaultValue: 'www-data'
+	}
+);
 
 // with-database [name] assumed domain name
 

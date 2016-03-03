@@ -1,16 +1,15 @@
 var fs = require('fs');
 var path = require('path');
 var Handlebars = require('handlebars');
+var shelljs = require('shelljs');
 
 module.exports = function SiteSetup(args) {
 	this.doIt = function() {
-		console.log('doing it');
-		console.log(args);
 
 		completeArguments(args);
 
-		console.log('completed');
 		console.log(args);
+		
 		console.log('---------');
 
 		// nginx config file
@@ -19,7 +18,6 @@ module.exports = function SiteSetup(args) {
 		var configPath = path.join(nginxSitesAvailablePath, configFilename);
 
 		var siteConfig = generateNginxConfigFile(args);
-		console.log(siteConfig);
 		
 		if(args.write_nginx_conf) {
 			var configFilename = args.directory;
@@ -35,8 +33,11 @@ module.exports = function SiteSetup(args) {
 			shelljs.exec(cmd);
 		}
 		
-		// create site folder(s)
-		// database
+		// Create site directories-this is a huge chore to do manually!
+		if(args.create_directories) {
+			createDirectories(args);
+		}
+
 	}
 
 	function completeArguments(args) {
@@ -58,5 +59,32 @@ module.exports = function SiteSetup(args) {
 		var template = Handlebars.compile(source);
 		var result = template(args);
 		return result;
+	}
+
+	function createDirectories(args) {
+		if(!fs.existsSync(args.www_path)) {
+			console.error(args.www_path, 'does not exist');
+		} else {
+			var site_path = args.site_path;
+			var html_path = path.join(site_path, 'public_html');
+			var logs_path = path.join(site_path, 'logs');
+			var user = args.user;
+			var group = args.group;
+
+			[site_path, html_path, logs_path].forEach(function(v) {
+				shelljs.mkdir('-p', v);
+			});
+
+			[
+				'chown -R ' + user + ' ' + site_path,
+				'chgrp -R ' + group + ' ' + site_path,
+				'chmod g+s ' + site_path,
+				'chown root ' + logs_path,
+				'chgrp root ' + logs_path,
+				'chmod 700 ' + logs_path
+			].forEach(function(line) {
+				shelljs.exec(line);
+			});
+		}
 	}
 }
