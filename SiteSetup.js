@@ -71,14 +71,17 @@ module.exports = function SiteSetup(args) {
 			var user = args.user;
 			var group = args.group;
 
-			[site_path, html_path, logs_path].forEach(function(v) {
-				shelljs.mkdir('-p', v);
+			shelljs.mkdir(site_path);
+			shelljs.exec('chmod g+s ' + site_path);
+
+			[html_path, logs_path].forEach(function(v) {
+				shelljs.mkdir(v);
 			});
 
 			[
 				'chown -R ' + user + ' ' + site_path,
 				'chgrp -R ' + group + ' ' + site_path,
-				'chmod g+s ' + site_path,
+				'chmod g+w ' + site_path,
 				'chown root ' + logs_path,
 				'chgrp root ' + logs_path,
 				'chmod 700 ' + logs_path
