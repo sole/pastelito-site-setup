@@ -18,6 +18,7 @@ module.exports = function SiteSetup(args) {
 		var configPath = path.join(nginxSitesAvailablePath, configFilename);
 
 		var siteConfig = generateNginxConfigFile(args);
+		console.log(siteConfig);
 		
 		if(args.write_nginx_conf) {
 			var configFilename = args.directory;
@@ -47,6 +48,31 @@ module.exports = function SiteSetup(args) {
 
 		args.server_name = args.domain;
 		args.site_path = path.join(args.www_path, args.directory);
+
+		var ssl_defaults = {
+			certificate: 'cert.pem',
+			certificate_key: 'privkey.pem',
+			trusted_certificate: 'fullchain.pem'
+		};
+
+		if(args.with_ssl) {
+			var certificate_path = args.site_path;
+			var keys = Object.keys(ssl_defaults);
+			keys.forEach(function(k) {
+				var full_k = 'ssl_' + k;
+				if(!args[full_k]) {
+					args[full_k] = path.join(certificate_path, ssl_defaults[k]);
+				}
+			});
+		}
+		
+		if(!args.port) {
+			if(args.with_ssl) {
+				args.port = 443;
+			} else {
+				args.port = 80;
+			}
+		}
 
 		// For obvious reasons, no WP without PHP
 		if(args.with_wordpress) {

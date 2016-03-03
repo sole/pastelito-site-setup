@@ -25,7 +25,25 @@ parser.addArgument(
 	}
 );
 
-// https certificate (?)
+// Port
+parser.addArgument(
+	['--port'],
+	{
+		help: 'Port the website will be served from. Default is 443 if using SSL, 80 otherwise'
+	}
+);
+
+// with-ssl
+parser.addArgument(
+	['--with-ssl'],
+	{
+		help: 'Serve using encrypted connection (SSL)',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
+
 // with-php
 parser.addArgument(
 	['--with-php'],
