@@ -16,6 +16,13 @@ module.exports = function SiteSetup(args) {
 		// nginx config file
 		var siteConfig = generateNginxConfigFile(args);
 		console.log(siteConfig);
+		if(args.write_nginx_conf) {
+			var configFilename = args.directory;
+			var nginxSitesAvailablePath = path.join(args.nginx_conf_path, 'sites-available');
+			var configPath = path.join(nginxSitesAvailablePath, configFilename);
+			console.log('Writing site config to', configPath);
+			fs.writeFileSync(configPath, siteConfig, 'utf-8');
+		}
 
 		// nginx ln -s sites-enabled
 		// create site folder(s)

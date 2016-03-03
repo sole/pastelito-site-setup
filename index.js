@@ -6,7 +6,7 @@ var parser = new ArgParse({
 	description: 'Set up sites, quick'
 });
 
-// pastelito-site-setup —with-php —with-https-redirect —create-database -domain=mydomain.com -directory=mydomain.com -www-path=/var/www/ -nginx-conf-path=/etc/nginx/
+// pastelito-site-setup —with-php —with-https-redirect —create-database -domain=mydomain.com -directory=mydomain.com -www-path=/var/www/ -nginx-conf-path=/etc/nginx/ --write-nginx-conf --create-directories --directory-owner=... --directory-group=...
 
 // domain -> directory
 parser.addArgument(
@@ -68,6 +68,24 @@ parser.addArgument(
 );
 
 // nginx-conf-path assumed /etc/nginx
+parser.addArgument(
+	['--nginx-conf-path'],
+	{
+		help: 'Folder where nginx configuration files are stored',
+		defaultValue: '/etc/nginx'
+	}
+);
+
+// Write site nginx conf to {nginx_conf_path}/sites-available
+parser.addArgument(
+	['--write-nginx-conf'],
+	{
+		help: 'Write site nginx conf to /etc/nginx/sites-available',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
 // with-database [name] assumed domain name
 
 var args = parser.parseArgs();
