@@ -6,7 +6,7 @@ var parser = new ArgParse({
 	description: 'Set up sites, quick'
 });
 
-// pastelito-site-setup —with-php —with-https-redirect —create-database -domain=mydomain.com -directory=mydomain.com -www-path=/var/www/ -nginx-conf-path=/etc/nginx/ --write-nginx-conf --create-directories --directory-owner=... --directory-group=...
+// pastelito-site-setup —with-php —with-https-redirect —create-database -domain=mydomain.com -directory=mydomain.com -www-path=/var/www/ -nginx-conf-path=/etc/nginx/ --write-nginx-conf --enable-site --create-directories --directory-owner=... --directory-group=...
 
 // domain -> directory
 parser.addArgument(
@@ -85,6 +85,17 @@ parser.addArgument(
 		defaultValue: false
 	}
 );
+
+// Enable site
+parser.addArgument(
+	['--enable-site'],
+	{
+		help: 'Enable site by making symbolic link from sites-available to sites-enabled',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
 
 // with-database [name] assumed domain name
 

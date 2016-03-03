@@ -14,8 +14,13 @@ module.exports = function SiteSetup(args) {
 		console.log('---------');
 
 		// nginx config file
+		var configFilename = args.directory;
+		var nginxSitesAvailablePath = path.join(args.nginx_conf_path, 'sites-available');
+		var configPath = path.join(nginxSitesAvailablePath, configFilename);
+
 		var siteConfig = generateNginxConfigFile(args);
 		console.log(siteConfig);
+		
 		if(args.write_nginx_conf) {
 			var configFilename = args.directory;
 			var nginxSitesAvailablePath = path.join(args.nginx_conf_path, 'sites-available');
@@ -24,7 +29,12 @@ module.exports = function SiteSetup(args) {
 			fs.writeFileSync(configPath, siteConfig, 'utf-8');
 		}
 
-		// nginx ln -s sites-enabled
+		if(args.enable_site) {
+			var enabledConfigPath = path.join(args.nginx_conf_path, 'sites-enabled', configFilename);
+			var cmd = 'ln -s ' + configPath + ' ' + enabledConfigPath;
+			shelljs.exec(cmd);
+		}
+		
 		// create site folder(s)
 		// database
 	}
