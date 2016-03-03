@@ -55,8 +55,18 @@ module.exports = function SiteSetup(args) {
 			trusted_certificate: 'fullchain.pem'
 		};
 
+		if(args.with_lets_encrypt) {
+			args.with_ssl = true;
+		}
+
 		if(args.with_ssl) {
-			var certificate_path = args.site_path;
+			var certificate_path;
+			if(args.with_lets_encrypt) {
+				certificate_path = path.join('/etc/letsencrypt/live', args.domain);
+			} else {
+				certificate_path = args.site_path;
+			}
+			
 			var keys = Object.keys(ssl_defaults);
 			keys.forEach(function(k) {
 				var full_k = 'ssl_' + k;

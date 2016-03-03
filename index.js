@@ -43,6 +43,15 @@ parser.addArgument(
 	}
 );
 
+parser.addArgument(
+	['--with-lets-encrypt'],
+	{
+		help: 'Serve using Let\'s Encrypt certificates (enables encrypted SSL connection)',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
 
 // with-php
 parser.addArgument(
