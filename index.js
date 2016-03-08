@@ -44,7 +44,7 @@ parser.addArgument(
 );
 
 parser.addArgument(
-	['--with-http-redirect-to-https'],
+	['--with-http-to-https-redirect'],
 	{
 		help: 'Add redirection from http to https URLs',
 		action: 'storeTrue',
