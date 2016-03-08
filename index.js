@@ -44,6 +44,16 @@ parser.addArgument(
 );
 
 parser.addArgument(
+	['--with-http-redirect-to-https'],
+	{
+		help: 'Add redirection from http to https URLs',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
+
+parser.addArgument(
 	['--with-lets-encrypt'],
 	{
 		help: 'Serve using Let\'s Encrypt certificates (enables encrypted SSL connection)',

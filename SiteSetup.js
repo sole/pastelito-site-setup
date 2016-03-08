@@ -76,6 +76,8 @@ module.exports = function SiteSetup(args) {
 			});
 		}
 		
+		args.http_port = 80;
+		
 		if(!args.port) {
 			if(args.with_ssl) {
 				args.port = 443;
