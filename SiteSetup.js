@@ -136,6 +136,11 @@ module.exports = function SiteSetup(args) {
 
 	function createDhParams(args) {
 		var pathToFile = path.join(site_path, 'dhparams.pem');
+		if(fs.existsSync(pathToFile)) {
+			console.log(pathToFile, 'already exists, skipped');
+			return;
+		}
+		
 		console.log('Attempting to create ' + pathToFile + ' --this might take a while');
 		shelljs.exec('openssl dhparam -out ' + pathToFile + ' 2048');
 	}
