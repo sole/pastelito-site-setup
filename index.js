@@ -62,6 +62,15 @@ parser.addArgument(
 	}
 );
 
+parser.addArgument(
+	['--create-dhparams-file'],
+	{
+		help: 'Create dhparams file if it does not exist. It will be saved in site_path/dhparams.pem',
+		action: 'storeTrue',
+		defaultValue: false
+	}
+);
+
 
 // with-php
 parser.addArgument(

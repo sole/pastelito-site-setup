@@ -39,6 +39,11 @@ module.exports = function SiteSetup(args) {
 			createDirectories(args);
 		}
 
+		// Create dh_params using openssl for preventing certain SSL vulnerability attacks
+		if(args.create_dhparams_file) {
+			createDhParams(args);
+		}
+
 	}
 
 	function completeArguments(args) {
@@ -127,5 +132,11 @@ module.exports = function SiteSetup(args) {
 				shelljs.exec(line);
 			});
 		}
+	}
+
+	function createDhParams(args) {
+		var pathToFile = path.join(site_path, 'dhparams.pem');
+		console.log('Attempting to create ' + pathToFile + ' --this might take a while');
+		shelljs.exec('openssl dhparam -out ' + pathToFile + ' 2048');
 	}
 }
