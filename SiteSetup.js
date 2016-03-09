@@ -135,7 +135,7 @@ module.exports = function SiteSetup(args) {
 	}
 
 	function createDhParams(args) {
-		var pathToFile = path.join(site_path, 'dhparams.pem');
+		var pathToFile = path.join(args.site_path, 'dhparams.pem');
 		if(fs.existsSync(pathToFile)) {
 			console.log(pathToFile, 'already exists, skipped');
 			return;
